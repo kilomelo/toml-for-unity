@@ -1,0 +1,18 @@
+title = "TOML Example"
+# This is just some value with a comment
+value-with-comment = "Some value"
+
+[[array-table]]
+value = 10
+
+[[array-table]]
+value = 20
+other-value = 10
+"value with spaces" = """This is a
+multiline string
+你好"""
+
+[owner]
+name = "Tom Preston-Werner"
+dob = 2022-05-10T00:39:47
+inline-table = { foo = "bar", bar = "baz", array = [ 1, 2, 3 ] }
