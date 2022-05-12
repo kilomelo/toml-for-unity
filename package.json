@@ -19,5 +19,11 @@
   ],
   "type": "tool",
   "dependencies": {},
-  "samples": []
+  "samples": [
+    {
+      "displayName": "Usage",
+      "description": "Common usage",
+      "path": "Example~/Tommy"
+    }
+  ]
 }
