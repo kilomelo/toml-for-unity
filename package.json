@@ -1,0 +1,23 @@
+{
+  "name": "com.kilomelo.toml-for-unity",
+  "displayName": "TOML for Unity",
+  "version": "0.0.1",
+  "author": {
+    "name": "KiloMelo",
+    "email": "weichuyoucai@gmail.com",
+    "url": "https://kilomelo.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kilomelo/toml-for-unity.git"
+  },
+  "unity": "2021.3",
+  "description": "Tommy TOML for Unity.",
+  "keywords": [
+    "TOML",
+    "Config"
+  ],
+  "type": "tool",
+  "dependencies": {},
+  "samples": []
+}
