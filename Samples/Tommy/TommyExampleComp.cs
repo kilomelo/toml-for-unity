@@ -10,6 +10,7 @@ namespace Samples.Tommy
             TommyExample.ExceptionHandleExample();
             TommyExample.GenerateTOMLFileExample();
             TommyExample.CollapsedValuesExample();
+            TommyExample.ExtensionExample();
         }
     }
 }

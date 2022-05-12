@@ -1,7 +1,9 @@
 // Reference the Tommy namespace at the start of the file
 using Tommy;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using Tommy.Extensions;
 
 namespace Samples.Tommy
 {
@@ -155,6 +157,44 @@ namespace Samples.Tommy
                 table.WriteTo(writer);
                 // Remember to flush the data if needed!
                 writer.Flush();
+            }
+        }
+
+        public static void ExtensionExample()
+        {
+            // using (StreamReader reader = File.OpenText(Path.Combine(_exampleTOMLFileDir, "configuration.toml")))
+            using (TOMLParser parser = new TOMLParser(File.OpenText(Path.Combine(_exampleTOMLFileDir, "configuration.toml"))))
+            {
+                // TryParse example
+                IEnumerable<TomlSyntaxException> errors;
+                if (parser.TryParse(out TomlNode rootNode, out errors))
+                {
+                    // FindNode example
+                    string nodePath = "owner";
+                    var node = rootNode.FindNode(nodePath);
+                    UnityEngine.Debug.Log($"FindNode [ {nodePath} ] result: [ {node} ]");
+                    
+                    // MergeWith example
+                    TomlNode newNode = new TomlTable()
+                    {
+                        ["owner"] =
+                        {
+                            ["name"] = "Jack Preston-Werner",
+                            ["dob"] = DateTime.Now + TimeSpan.FromDays(10),
+                            ["age"] = 33,
+                        }
+                    };
+                    rootNode.MergeWith(newNode, true);
+                    UnityEngine.Debug.Log($"FindNode [ {nodePath} ] result: [ {node} ]");
+                }
+                else
+                {
+                    UnityEngine.Debug.LogError("TryParse failed, errors:");
+                    foreach (var error in errors)
+                    {
+                        UnityEngine.Debug.LogError(error);
+                    }
+                }
             }
         }
     }
