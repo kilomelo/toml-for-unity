@@ -9,11 +9,13 @@ namespace Samples.Tommy
 {
     public static class TommyExample
     {
-        private static readonly string _exampleTOMLFileDir = "Assets/toml-for-unity/Samples/Tommy";
-        public static void ParseExample()
+        private static readonly string _defaultExampleTOMLFileDir = "Assets/toml-for-unity/Samples/Tommy";
+        public static void ParseExample(string exampleConfigDir = null)
         {
-            // Parse{ into a node
-            using (StreamReader reader = File.OpenText(Path.Combine(_exampleTOMLFileDir, "configuration.toml")))
+            // Parse into a node
+            using (StreamReader reader = File.OpenText(Path.Combine(
+                       string.IsNullOrEmpty(exampleConfigDir) ? _defaultExampleTOMLFileDir : exampleConfigDir,
+                       "configuration.txt")))
             {
                 // Parse the table
                 TomlTable table = TOML.Parse(reader);
@@ -37,11 +39,13 @@ namespace Samples.Tommy
             }
         }
 
-        public static void ExceptionHandleExample()
+        public static void ExceptionHandleExample(string exampleConfigDir = null)
         {
             TomlTable table;
             // Parse{ into a node
-            using (StreamReader reader = File.OpenText(Path.Combine(_exampleTOMLFileDir, "broken.toml")))
+            using (StreamReader reader = File.OpenText(Path.Combine(
+                       string.IsNullOrEmpty(exampleConfigDir) ? _defaultExampleTOMLFileDir : exampleConfigDir,
+                       "broken.txt")))
             {
                 try
                 {
@@ -63,9 +67,11 @@ namespace Samples.Tommy
             // TommyExtensions.TryParse().
         }
 
-        public static void GenerateTOMLFileExample()
+        public static void GenerateTOMLFileExample(string exampleConfigDir = null)
         {
-            string TOMLFilePath = Path.Combine(_exampleTOMLFileDir, "generatedTOMLFile.toml");
+            string TOMLFilePath = Path.Combine(
+                string.IsNullOrEmpty(exampleConfigDir) ? _defaultExampleTOMLFileDir : exampleConfigDir,
+                "generatedTOMLFile.txt");
             // Generate a TOML file programmatically
             TomlTable toml = new TomlTable
             {
@@ -125,7 +131,7 @@ namespace Samples.Tommy
             }
         }
 
-        public static void CollapsedValuesExample()
+        public static void CollapsedValuesExample(string exampleConfigDir = null)
         {
             TomlTable table = new TomlTable {
                 ["foo"] = new TomlTable {
@@ -136,7 +142,9 @@ namespace Samples.Tommy
                     }
                 }
             };
-            using (StreamWriter writer = File.CreateText(Path.Combine(_exampleTOMLFileDir, "normal.toml")))
+            using (StreamWriter writer = File.CreateText(Path.Combine(
+                       string.IsNullOrEmpty(exampleConfigDir) ? _defaultExampleTOMLFileDir : exampleConfigDir,
+                       "normal.txt")))
             {
                 table.WriteTo(writer);
                 // Remember to flush the data if needed!
@@ -152,7 +160,9 @@ namespace Samples.Tommy
                     }
                 }
             };
-            using (StreamWriter writer = File.CreateText(Path.Combine(_exampleTOMLFileDir, "collapsed.toml")))
+            using (StreamWriter writer = File.CreateText(Path.Combine(
+                       string.IsNullOrEmpty(exampleConfigDir) ? _defaultExampleTOMLFileDir : exampleConfigDir,
+                       "collapsed.txt")))
             {
                 table.WriteTo(writer);
                 // Remember to flush the data if needed!
@@ -160,10 +170,11 @@ namespace Samples.Tommy
             }
         }
 
-        public static void ExtensionExample()
+        public static void ExtensionExample(string exampleConfigDir = null)
         {
-            // using (StreamReader reader = File.OpenText(Path.Combine(_exampleTOMLFileDir, "configuration.toml")))
-            using (TOMLParser parser = new TOMLParser(File.OpenText(Path.Combine(_exampleTOMLFileDir, "configuration.toml"))))
+            using (TOMLParser parser = new TOMLParser(File.OpenText(Path.Combine(
+                       string.IsNullOrEmpty(exampleConfigDir) ? _defaultExampleTOMLFileDir : exampleConfigDir,
+                       "configuration.txt"))))
             {
                 // TryParse example
                 IEnumerable<TomlSyntaxException> errors;
